@@ -30,11 +30,7 @@ class _HomePageState extends State<HomePage> {
         todos = List<Map<String, dynamic>>.from(json.decode(storedTodos));
       });
     } else {
-      todos = [
-        {"title": "Buy Groceries", "isDone": false},
-        {"title": "Fix bugs in Xed-Editor", "isDone": false},
-        {"title": "Test Flutter drag feature", "isDone": false},
-      ];
+      todos = [];
     }
   }
 
@@ -97,6 +93,12 @@ class _HomePageState extends State<HomePage> {
             initialTitle: todos[index]['title'],
             initialIsDone: todos[index]['isDone'],
             onDelete: () => _deleteTodo(index),
+            onToggle: (isDone) {
+              setState(() {
+                todos[index]['isDone'] = isDone;
+              });
+              _saveTodos();
+            },
           );
         },
       ),
